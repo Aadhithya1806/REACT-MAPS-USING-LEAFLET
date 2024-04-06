@@ -1,4 +1,5 @@
 import { Icon, routing } from "leaflet";
+import "leaflet-rotatedmarker";
 import source from "../assets/source.png";
 import destination from "../assets/destination.png";
 import ship from "../assets/ship.png";
@@ -16,9 +17,9 @@ export const destIcon = new Icon({
     popupAnchor: [-3, -76],
 });
 
-export const shipIcon = L.icon({
+export const shipIcon = new Icon({
     iconUrl: ship,
-    iconSize: [30, 75],
+    iconSize: [20, 95],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
 });

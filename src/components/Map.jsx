@@ -1,47 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { shipIcon, sourceIcon, destIcon } from "./IconDefinitions";
+import "./Map.css";
 import {
     calculateCoordinates,
     calculateDistance,
+    calculateNoOfCoordinates,
 } from "../Util/MathCalculations";
+//y2-y1/x2-x1 = tan 0
+
+const calcAngle = (x1, y1, x2, y2) => {
+    const radAngle = Math.atan((y1 - y2) / (x1 - x2));
+    return (radAngle * 180) / Math.PI;
+};
+
+const angle = calcAngle(22.1696, 91.4996, 22.2637, 91.7159);
+console.log(angle);
 const Map = () => {
     const [currentCoordinate, setCurrentCoordinate] = useState([
-        13.0827, 80.2707,
+        22.1696, 91.4996,
     ]);
     const [counter, setCounter] = useState(0);
-    const srcCoordinate = [13.0827, 80.2707];
-    const destCoordinate = [17.6868, 83.2185];
+    const srcCoordinate = [22.1696, 91.4996];
+    const destCoordinate = [22.2637, 91.7159];
 
+    // const distance = calculateDistance(13.0827, 80.2707, 17.6868, 83.21855);
+    // const betweenCoordinates = calculateNoOfCoordinates(distance);
+    // console.log(betweenCoordinates);
     const coordinatesList = [
-        ...calculateCoordinates(13.0827, 80.2707, 17.6868, 83.21855, 50),
+        ...calculateCoordinates(22.1696, 91.4996, 22.2637, 91.7159, 7),
     ];
-    console.log(calculateDistance(13.0827, 80.2707, 17.6868, 83.21855));
 
     useEffect(() => {
         if (counter < coordinatesList.length) {
             const timer = setTimeout(() => {
                 setCurrentCoordinate(() => {
-                    console.log(counter);
+                    console.log("Counter" + counter);
                     let result = [
                         coordinatesList[counter][0],
                         coordinatesList[counter][1],
                     ];
+                    console.log(result);
                     return result;
                 });
                 setCounter((prev) => prev + 1);
-            }, 500);
+            }, 750);
 
             return () => clearTimeout(timer);
         }
     }, [counter]);
 
     return (
-        <MapContainer
-            center={[14.27, 80.2707]}
-            zoom={6}
-            scrollWheelZoom={false}
-        >
+        <MapContainer center={[22.23, 91.6]} zoom={11} scrollWheelZoom={false}>
             <TileLayer
                 attribution='<a href="https://www.openstreetmap.org/copyright"> </a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -51,7 +61,11 @@ const Map = () => {
                 {" "}
                 <Popup>Source</Popup>
             </Marker>
-            <Marker icon={shipIcon} position={currentCoordinate}>
+            <Marker
+                rotationAngle={angle}
+                icon={shipIcon}
+                position={currentCoordinate}
+            >
                 <Popup>The Ship</Popup>
             </Marker>
             <Marker icon={destIcon} position={destCoordinate}>
