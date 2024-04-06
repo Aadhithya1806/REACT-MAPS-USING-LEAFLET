@@ -25,7 +25,7 @@ export const calculateCoordinates = (
 
         coordinatesList.push(coordinates);
     }
-    coordinatesList.push(destCoordinate);
+    // coordinatesList.push(destCoordinate);
     return coordinatesList;
 };
 

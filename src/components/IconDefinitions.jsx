@@ -20,7 +20,7 @@ export const destIcon = new Icon({
 export const shipIcon = new Icon({
     iconUrl: ship,
     iconSize: [20, 95],
-    iconAnchor: [22, 94],
+    iconAnchor: [50, 120],
     popupAnchor: [-3, -76],
 });
 
