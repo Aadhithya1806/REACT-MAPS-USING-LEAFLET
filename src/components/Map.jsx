@@ -16,7 +16,9 @@ const calcAngle = (x1, y1, x2, y2) => {
 
 const angle = calcAngle(22.1696, 91.4996, 22.2637, 91.7159);
 console.log(angle);
-const Map = () => {
+const Map = ({ speed, isStarted }) => {
+    console.log(speed);
+    console.log(isStarted);
     const [currentCoordinate, setCurrentCoordinate] = useState([
         22.1696, 91.4996,
     ]);
@@ -32,28 +34,35 @@ const Map = () => {
     ];
 
     useEffect(() => {
-        if (counter < coordinatesList.length) {
-            const timer = setTimeout(() => {
-                setCurrentCoordinate(() => {
-                    console.log("Counter" + counter);
-                    let result = [
-                        coordinatesList[counter][0],
-                        coordinatesList[counter][1],
-                    ];
-                    console.log(result);
-                    return result;
-                });
-                setCounter((prev) => prev + 1);
-            }, 750);
+        if (!isStarted) {
+            setCurrentCoordinate(() => {
+                setCounter(0);
+                return srcCoordinate;
+            });
+        } else {
+            if (counter < coordinatesList.length) {
+                const timer = setTimeout(() => {
+                    setCurrentCoordinate(() => {
+                        console.log("Counter" + counter);
+                        let result = [
+                            coordinatesList[counter][0],
+                            coordinatesList[counter][1],
+                        ];
+                        console.log(result);
+                        return result;
+                    });
+                    setCounter((prev) => prev + 1);
+                }, 500);
 
-            return () => clearTimeout(timer);
+                return () => clearTimeout(timer);
+            }
         }
-    }, [counter]);
+    }, [counter, isStarted]);
 
     return (
         <MapContainer center={[22.23, 91.6]} zoom={11} scrollWheelZoom={false}>
             <TileLayer
-                attribution='<a href="https://www.openstreetmap.org/copyright"> </a>'
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
