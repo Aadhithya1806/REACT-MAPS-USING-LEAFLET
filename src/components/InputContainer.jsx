@@ -32,7 +32,7 @@ const DisplayInfoCard = ({ clickHandler, resetHandler }) => {
                     required
                 />
                 {!currValue ? (
-                    <p className="text-red-500 text-right">
+                    <p className="text-red-500 text-md text-right">
                         Please Enter Speed To Start Moving
                     </p>
                 ) : (

@@ -26,6 +26,7 @@ export const calculateCoordinates = (
         coordinatesList.push(coordinates);
     }
     coordinatesList.push(destCoordinate);
+    console.log(coordinatesList);
     return coordinatesList;
 };
 
@@ -44,7 +45,7 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
     return 2 * r * Math.asin(Math.sqrt(a));
 };
 
-export const calculateNoOfCoordinates = (distance) => {
+export const calculatefps = (distance) => {
     const duration = (distance * 1000) / 20;
     const totalFrames = duration * 2;
     // distancePerFrame = distance / totalFrames;

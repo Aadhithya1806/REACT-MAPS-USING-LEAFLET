@@ -5,7 +5,7 @@ import "./Map.css";
 import {
     calculateCoordinates,
     calculateDistance,
-    calculateNoOfCoordinates,
+    calculatefps,
 } from "../Util/MathCalculations";
 //y2-y1/x2-x1 = tan 0
 
@@ -15,22 +15,31 @@ const calcAngle = (x1, y1, x2, y2) => {
 };
 
 const angle = calcAngle(22.1696, 91.4996, 22.2637, 91.7159);
-console.log(angle);
+// console.log(angle);
 const Map = ({ speed, isStarted }) => {
-    console.log(speed);
-    console.log(isStarted);
+    console.log(typeof speed);
+    const [hasEnded, setHasEnded] = useState(isStarted);
     const [currentCoordinate, setCurrentCoordinate] = useState([
         22.1696, 91.4996,
     ]);
     const [counter, setCounter] = useState(0);
     const srcCoordinate = [22.1696, 91.4996];
     const destCoordinate = [22.2637, 91.7159];
-
-    // const distance = calculateDistance(13.0827, 80.2707, 17.6868, 83.21855);
+    const distance = calculateDistance(13.0827, 80.2707, 17.6868, 83.21855);
+    const speedInt = +speed;
+    const totalHours = speedInt > 1 ? distance / speedInt : 0;
+    const totalBetweenCoordinates = Math.ceil(totalHours * (5 / 18));
+    console.log("total Points", totalBetweenCoordinates);
     // const betweenCoordinates = calculateNoOfCoordinates(distance);
-    // console.log(betweenCoordinates);
+    // console.log(distance);
     const coordinatesList = [
-        ...calculateCoordinates(22.1696, 91.4996, 22.2637, 91.7159, 7),
+        ...calculateCoordinates(
+            22.1696,
+            91.4996,
+            22.2637,
+            91.7159,
+            totalBetweenCoordinates
+        ),
     ];
 
     useEffect(() => {
@@ -51,6 +60,7 @@ const Map = ({ speed, isStarted }) => {
                         console.log(result);
                         return result;
                     });
+
                     setCounter((prev) => prev + 1);
                 }, 500);
 
@@ -58,7 +68,7 @@ const Map = ({ speed, isStarted }) => {
             }
         }
     }, [counter, isStarted]);
-
+    console.log(isStarted);
     return (
         <MapContainer center={[22.23, 91.6]} zoom={11} scrollWheelZoom={false}>
             <TileLayer

@@ -2,7 +2,7 @@ import React from "react";
 import srcImg from "../assets/source.png";
 import destImg from "../assets/destination.png";
 const DisplayInfo = ({ src, dest, speed }) => {
-    console.log(src, speed, dest);
+    // console.log(src, speed, dest);
     return (
         <div className="flex xs:flex-col justify-between sm:flex-row text-stone-200 text-sm bg-stone-700 border border-stone-700 rounded xs:w-90 xs:mx-auto sm:mx-1 items-center md:w-auto m-2">
             <div className="flex flex-col items-center justify-between p-4 mb-2">
