@@ -25,13 +25,14 @@ const Map = ({ speed, isStarted }) => {
     const [counter, setCounter] = useState(0);
     const srcCoordinate = [22.1696, 91.4996];
     const destCoordinate = [22.2637, 91.7159];
-    const distance = calculateDistance(13.0827, 80.2707, 17.6868, 83.21855);
+    const distance = calculateDistance(22.1696, 91.4996, 22.2637, 91.7159);
     const speedInt = +speed;
-    const totalHours = speedInt > 1 ? distance / speedInt : 0;
-    const totalBetweenCoordinates = Math.ceil(totalHours * (5 / 18));
+    const totalHours = speedInt > 1 ? distance / (speedInt * (5 / 18)) : 0;
+    const totalBetweenCoordinates = Math.ceil(totalHours);
+
     console.log("total Points", totalBetweenCoordinates);
     // const betweenCoordinates = calculateNoOfCoordinates(distance);
-    // console.log(distance);
+    console.log(distance);
     const coordinatesList = [
         ...calculateCoordinates(
             22.1696,
